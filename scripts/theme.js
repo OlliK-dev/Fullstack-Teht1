@@ -10,12 +10,12 @@ function applyTheme(t) {
 }
 
 function saveTheme(t) { 
-    localStorage.setItem(THEME_KEY, t); 
+    window.sessionStorage.setItem(THEME_KEY, t); 
 } // BUG: key typo
 
 function loadTheme() { 
 
-    const currentTheme = localStorage.getItem(THEME_KEY)
+    const currentTheme = window.sessionStorage.getItem(THEME_KEY)
     
     if(currentTheme == null){
         return 'light'
@@ -62,5 +62,5 @@ export function initThemeButton(){
     
     const currentTheme = loadTheme()
 
-    applyTheme(loadTheme());
+    applyTheme(currentTheme);
 }
