@@ -9,10 +9,11 @@ export function initApiSearch() {
 
     // Coffee http-rajapinnan dokumentaatio: https://sampleapis.com/api-list/coffee
     async function searchImages(query) {
-        const url = `https://api.sampleapis.com/coffee/images`; // BUG: ei vastaa hakusanaan
+        const url = `https://api.sampleapis.com/coffee/hot`; // BUG: ei vastaa hakusanaan
         const res = await fetch(url);
         const data = await res.json();
         return data.slice(0, 8).map(x => ({ title: x.title || query, url: x.image }));
+        
     }
 
     form.addEventListener('submit', async (e) => {
