@@ -14,16 +14,22 @@ export function initClipboard(){
             if(result.state !== 'granted'){
                 $('#copyBtn').addEventListener('click', async () => {
                     const text = $('#copyBtn').dataset.text;
-                    await navigator.clipboard.readText(text); // BUG: voi heittää virheen
+                    await navigator.clipboard.writeText(text); // BUG: voi heittää virheen
                     alert('Kopioitu!');
                 })
             }else {
                 console.log('Lupa on jo myönnetty');
+                if(result.state == 'granted'){
+                    $('#copyBtn').addEventListener('click', async () => {
+                    const text = $('#copyBtn').dataset.text;
+                    await navigator.clipboard.writeText(text); // BUG: voi heittää virheen
+                    alert('Kopioitu uudelleen!');
+                    })
+                }
             }
         } catch (error) {
-            console.log('ERROR::Leikepöytä pyyntö hylätty')
+            console.log('ERROR::Leikepöytä lupa hylätty')
         }
-   
     }
     checkClipboardPermissionAndRequest();
 }
