@@ -6,10 +6,24 @@ import { $ } from './helpers.js'
 
 
 export function initClipboard(){
-    $('#copyBtn').addEventListener('click', async () => {
-        const text = $('#copyBtn').dataset.text;
-        await navigator.clipboard.writeText(text); // BUG: voi heittää virheen
-        alert('Kopioitu!');
-   })
-}
+    async function checkClipboardPermissionAndRequest(){
 
+        try {
+            const result = await navigator.permissions.query({name: 'clipboard-read'});
+
+            if(result.state !== 'granted'){
+                $('#copyBtn').addEventListener('click', async () => {
+                    const text = $('#copyBtn').dataset.text;
+                    await navigator.clipboard.readText(text); // BUG: voi heittää virheen
+                    alert('Kopioitu!');
+                })
+            }else {
+                console.log('Lupa on jo myönnetty');
+            }
+        } catch (error) {
+            console.log('ERROR::Leikepöytä pyyntö hylätty')
+        }
+   
+    }
+    checkClipboardPermissionAndRequest();
+}
