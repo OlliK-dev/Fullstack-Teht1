@@ -14,7 +14,7 @@ export function initClipboard(){
             if(result.state !== 'granted'){
                 $('#copyBtn').addEventListener('click', async () => {
                     const text = $('#copyBtn').dataset.text;
-                    await navigator.clipboard.writeText(text); // BUG: voi heittää virheen
+                    await navigator.clipboard.writeText(text);
                     alert('Kopioitu!');
                 })
             }else {
@@ -22,9 +22,10 @@ export function initClipboard(){
                 if(result.state == 'granted'){
                     $('#copyBtn').addEventListener('click', async () => {
                     const text = $('#copyBtn').dataset.text;
-                    await navigator.clipboard.writeText(text); // BUG: voi heittää virheen
+                    await navigator.clipboard.writeText(text);
                     alert('Kopioitu uudelleen!');
                     })
+                    
                 }
             }
         } catch (error) {
